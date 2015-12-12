@@ -64,14 +64,16 @@ public class MainActivity extends Activity {
     public void photoZoom(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, IMAGE_UNSPECIFIED);
-        intent.putExtra("crop", "true");
+        intent.putExtra("crop", "true"); //设置了参数，就会调用裁剪，如果不设置，就会跳过裁剪的过程。
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
+        intent.putExtra("aspectX", 1);//这个是裁剪时候的 裁剪框的 X 方向的比例。
+        intent.putExtra("aspectY", 1); //同上Y 方向的比例. (注意： aspectX, aspectY ，两个值都需要为 整数，如果有一个为浮点数，就会导致比例失效。)
+//设置aspectX 与 aspectY 后，裁剪框会按照所指定的比例出现，放大缩小都不会更改。如果不指定，那么 裁剪框就可以随意调整了。
         // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 250);
-        intent.putExtra("outputY", 250);
-        intent.putExtra("return-data", true);
+        intent.putExtra("outputX", 250); //返回数据的时候的 X 像素大小。
+        intent.putExtra("outputY", 250); //返回的时候 Y 的像素大小。
+        //intent.putExtra("noFaceDetection", true); 是否去除面部检测， 如果你需要特定的比例去裁剪图片，那么这个一定要去掉，因为它会破坏掉特定的比例。
+        intent.putExtra("return-data", true);//是否要返回值。 一般都要。
         startActivityForResult(intent, PHOTO_RESULT);
     }
 
